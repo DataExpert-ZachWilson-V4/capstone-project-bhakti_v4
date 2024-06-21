@@ -45,7 +45,8 @@ You can find the code for the data transformation [here](/Users/bhakti/Downloads
 - The 'geometry' column is dropped from the DataFrame.
 - The 'PCODE' column is renamed to 'PostalCode'.
 - Finally, the script writes the DataFrame to a new CSV file, without including the DataFrame's index. This results in a transformed version of the original data, with unnecessary columns removed, the 'PCODE' column simplified, and the 'geometry' column split into 'Longitude' and 'Latitude' columns.
-You can find the image for the data and architecture [here](images/data.png).
+You can find the image for the data and architecture [
+![here](images/data.png).
 
 5. Lambda function to trigger MWAA pipeline
 - This Python script defines a Lambda function lambda_handler that triggers an Amazon Managed Workflows for Apache Airflow (MWAA) DAG (Directed Acyclic Graph) using the MWAA CLI (Command Line Interface).
