@@ -3,7 +3,7 @@
 # Datapiepline orchestration and visualization for childcare centers in Toronto
 
 ## Overview
-This project uses childcare center data from the Toronto city open portal and considers a situation where you want to check out the child care centers near you. It considers when you need to initiate a data pipeline as soon as data arrive in an AWS S3 bucket. The data is then transformed and stored in an S3 curated bucket. Following this, the curated data is crawled and cataloged in an AWS Athena database table, enabling the execution of analytical queries without the need for manual intervention and using quicksight for visualization. This project uses a data pipeline using Amazon Managed Workflow for Apache Airflow (MWAA). The architecture for our use case is outlined below:
+This project uses childcare center data from the Toronto City open portal and considers a situation where you want to check out the childcare centers near you. It considers when you need to initiate a data pipeline as soon as data arrives in an AWS S3 bucket. The data is then transformed and stored in an S3 curated bucket. Following this, the curated data is crawled and cataloged in an AWS Athena database table, enabling the execution of analytical queries without the need for manual intervention and using quicksight for visualization. This project uses a data pipeline using Amazon Managed Workflow for Apache Airflow (MWAA). The architecture for our use case is outlined below:
 
 - The image provides an overview of the data and architecture for the project.
 - It shows the flow of data from the raw data file in the landed-zone S3 bucket to the curated-data S3 bucket after going through the data pipeline.
@@ -35,7 +35,7 @@ This project uses childcare center data from the Toronto city open portal and co
 [stack_one.yaml](cloudformation/stack_one.yaml)
 
 4. Data-transformation
-You can find the code for the data transformation [here](/Users/bhakti/Downloads/Git/capstone-project-bhakti_v4/src/code/data-transformation.py).
+You can find the code for the data transformation [here](src/code/data-transformation.py).
 - The script starts by importing the necessary libraries: pandas for data manipulation and ast for converting strings to Python objects.
 - It specifies the path to a CSV file and loads this file into a pandas DataFrame.
 - The script drops the columns 'ward', 'PHONE', and 'run_date' from the DataFrame.
@@ -70,7 +70,7 @@ You can find the image for the data and architecture [
 ![Glue_etls](images/glue_etls.png)
 
 6. DAG
-You can find the code for the DAG [here](/Users/bhakti/Downloads/Git/capstone-project-bhakti_v4/src/dag/datapipeline-orc-one.py).
+You can find the code for the DAG [here](src/dag/datapipeline-orc-one.py).
 - The DAG is defined to orchestrate a data pipeline. Here's a brief explanation of each task in the DAG:
 - begin: This is a task that signifies the start of the DAG.
 - quality_check: This is a PythonOperator task that checks the quality of the data by verifying if a specific file exists in an S3 bucket. 
