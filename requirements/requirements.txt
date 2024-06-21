@@ -1,0 +1,4 @@
+#python3 -m pip install --user -U -r requirements.txt
+apache-airflow
+apache-airflow-providers-amazon
+PyAthena
