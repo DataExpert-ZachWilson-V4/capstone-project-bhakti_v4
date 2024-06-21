@@ -91,8 +91,11 @@ The chain function is used to define the dependencies between these tasks, i.e.,
 
 ![Athena](images/Athena.png)
 
-7. For Data visualization I have used quicksight. where you can drill down or drill up each query for more details:
-- Sum of Igspace by Longitude, Latitude, and Qcode.Showing top 20 in Longitude, Latitude and top 18 in Qcode
+7. Utilized Quicksight for data visualization, which allows for detailed exploration of each query through drill down or drill up operations:
+Displaying the top 20 results for the sum of Igspace, categorized by Longitude and Latitude, and the top 18 results by Qcode.
+Displaying the top 20 results for the sum of Pgspace, categorized by Longitude and Latitude, and the top 18 results by Qcode.
+Displaying the top 20 results for the sum of Kgspace, categorized by Longitude and Latitude, and the top 18 results by Qcode.
+Displaying the top 20 results for the sum of Totspace, categorized by Longitude and Latitude, and the top 18 results by Qcode.
 ![quicksight](images/quicksight.png)
 ![quicksight_1](images/quicksight_1.png)
 
