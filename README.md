@@ -1,9 +1,9 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/1lXY_Wlg)
 
-# Datapiepline orchetration and visualization for childcare centers in toronto
+# Datapiepline orchestration and visualization for childcare centers in Toronto
 
 ## Overview
-This projects uses childcare centers data from Tornto city open portal and considers a situation where you want to checkout the child care centers near you. It conisders when you need to initiate a data pipeline as soon as data arrive in an AWS S3 bucket. The data is then transformed and stored in an S3 curated bucket. Following this, the curated data is crawled and cataloged in an AWS Athena database table, enabling the execution of analytical queries without the need for manual intervention and using quicksight for viaulization. This project uses data pipeline using Amazon Managed Workflow for Apache Airflow (MWAA). The architecture for our use case is outlined below:
+This project uses childcare center data from the Toronto city open portal and considers a situation where you want to check out the child care centers near you. It considers when you need to initiate a data pipeline as soon as data arrive in an AWS S3 bucket. The data is then transformed and stored in an S3 curated bucket. Following this, the curated data is crawled and cataloged in an AWS Athena database table, enabling the execution of analytical queries without the need for manual intervention and using quicksight for visualization. This project uses a data pipeline using Amazon Managed Workflow for Apache Airflow (MWAA). The architecture for our use case is outlined below:
 
 - The image provides an overview of the data and architecture for the project.
 - It shows the flow of data from the raw data file in the landed-zone S3 bucket to the curated-data S3 bucket after going through the data pipeline.
@@ -31,7 +31,7 @@ This projects uses childcare centers data from Tornto city open portal and consi
 ![mwaa](images/mwaa_env.png)
 ![mwaa_env](images/mwaa_env_1.png)
 
-3. for Glue part used the cloudformation template:
+3. for the Glue part use the cloud formation template:
 [stack_one.yaml](cloudformation/stack_one.yaml)
 
 4. Data-transformation
@@ -40,7 +40,7 @@ You can find the code for the data transformation [here](/Users/bhakti/Downloads
 - It specifies the path to a CSV file and loads this file into a pandas DataFrame.
 - The script drops the columns 'ward', 'PHONE', and 'run_date' from the DataFrame.
 - The 'PCODE' column is modified by keeping only the first three characters of each entry.
-- A function get_coordinates is defined. This function takes a string and an index as input, attempts to convert the string to a Python object using ast.literal_eval, and then returns the coordinate at the specified index if it exists. If the string cannot be converted or the coordinate does not exist, the function returns None.
+- A function get_coordinates is defined. This function takes a string and an index as input attempts to convert the string to a Python object using ast.literal_eval, and then returns the coordinate at the specified index if it exists. If the string cannot be converted or the coordinate does not exist, the function returns None.
 - The script applies the get_coordinates function to the 'geometry' column of the DataFrame to create two new columns: 'Longitude' and 'Latitude'.
 - The 'geometry' column is dropped from the DataFrame.
 - The 'PCODE' column is renamed to 'PostalCode'.
@@ -64,7 +64,7 @@ You can find the image for the data and architecture [here](images/data.png).
 - Data Loading: The script writes the dynamic frame back to an S3 bucket in Glue Parquet format with gzip compression.
 - Job Commit: The script commits the job, making it ready for execution.
 - This script is used in data pipeline workflows to extract data from a source (S3 bucket), transform it (into a dynamic frame), and load it into a destination (S3 bucket in a different format).
-- the result will be seen when dag task is executed 
+- the result will be seen when the dag task is executed 
 ![Glue_table](images/glue_table.png)
 ![Glue_etls](images/glue_etls.png)
 
@@ -75,12 +75,12 @@ You can find the code for the DAG [here](/Users/bhakti/Downloads/Git/capstone-pr
 - quality_check: This is a PythonOperator task that checks the quality of the data by verifying if a specific file exists in an S3 bucket. 
 This is the first quality check in the pipeline, ensuring that the necessary data is present before proceeding with the rest of the tasks.
 - purge_processed_data_s3_objects: This is a BashOperator task that purges (deletes) processed data from an S3 bucket. 
-This is done to clean up any previous processed data before running the new data pipeline.
+This is done to clean up any previously processed data before running the new data pipeline.
 - purge_data_catalog: This is another BashOperator task that purges the data catalog in AWS Glue. 
 This is done to ensure that the catalog is clean before running the new data pipeline.
 - run_glue_job: This is a GlueJobOperator task that runs a Glue Job. AWS Glue is a fully managed extract, transform, and load (ETL) service that makes it easy to prepare and load your data for analytics.
 - run_glue_crawler: This is a GlueCrawlerOperator task that runs a Glue Crawler. 
-The crawler connects to source or target data store, progresses through a prioritized list of classifiers to determine the schema for data, and then creates metadata tables in the AWS Glue Data Catalog.
+The crawler connects to the source or target data store, progresses through a prioritized list of classifiers to determine the schema for data, and then creates metadata tables in the AWS Glue Data Catalog.
 - sync_buckets: This is a BashOperator task that syncs two S3 buckets. This is done to ensure that the processed data is available in the destination bucket.
 - purge_raw_data_file: This is an S3DeleteObjectsOperator task that purges (deletes) the raw data file from the S3 bucket. This is done to clean up the raw data after it has been processed.
 - quality_check_athena: This is another PythonOperator task that checks the quality of the data in Athena. It verifies if the table has columns 'Latitude' and 'Longitude'. This is the final quality check in the pipeline, ensuring that the processed data is as expected.
@@ -92,7 +92,7 @@ The chain function is used to define the dependencies between these tasks, i.e.,
 ![Athena](images/Athena.png)
 
 7. For Data visualization I have used quicksight. where you can drill down or drill up each query for more details:
-- Sum of Igspace by Longitude, Latitude, and Qcode.Showing top 20 in Longitude, Latitude and top 18 in Qcode
+- Sum of Igspace by Longitude, Latitude, and Qcode.Showing top 20 in Longitude, Latitude, and top 18 in Qcode
 ![quicksight](images/quicksight.png)
 ![quicksight_1](images/quicksight_1.png)
 
